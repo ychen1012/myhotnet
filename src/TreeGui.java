@@ -1,20 +1,25 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
  
 public class TreeGui extends Application {
  
@@ -70,18 +75,55 @@ TreeView<String> tree = new TreeView<> (rootItem);
         StackPane root = new StackPane();
         root.getChildren().add(tree);
         VBox box = new VBox();
-        final Scene scene = new Scene(box, 400, 500);
+        final Scene scene = new Scene(box, 500, 500);
         scene.setFill(Color.LIGHTGRAY);
  
         TreeView<String> treeView = new TreeView<>(rootNode);
         treeView.setEditable(true);
+        
+        
+        
+ Text label1=new Text("词语一：");
+ Text label2=new Text("词语二：");
+ TextField text1=new TextField();
+ TextField text2=new TextField();
+ HBox hb=new HBox();
+ HBox hb2=new HBox();
+ HBox hb3=new HBox();
+ 
+ VBox vb=new VBox();
+ Label length=new Label();
+ Button len=new Button("计算");
+ Button clean=new Button("清除");
+hb.getChildren().add(label1);
+hb.getChildren().add(text1);
+hb.setSpacing(10);
+hb2.getChildren().add(label2);
+hb2.getChildren().add(text2);
+hb2.setSpacing(10);
+hb3.getChildren().add(len);
+hb3.getChildren().add(clean);
+hb3.setSpacing(10);
+vb.getChildren().addAll(hb,hb2,length,hb3);
+vb.setSpacing(10);
+len.setOnAction((ActionEvent e)->{
+	length.setText(String.valueOf(1.0/(new Tree().lengths(text1.getText(), text2.getText()))));
+	
+});
+clean.setOnAction((ActionEvent e)->{
+	text1.clear();
+	text2.clear();
+
+});
+
        
  
         box.getChildren().add(treeView);
         GridPane g=new GridPane();
         g.add(tree, 0, 0);
         g.add(box, 1, 0);
-        primaryStage.setScene(new Scene(g, 400, 400));
+        g.add(vb, 2, 0);
+        primaryStage.setScene(new Scene(g, 800, 400));
         primaryStage.show();
     }
     public static class yiyuan {
@@ -143,14 +185,5 @@ public ArrayList<yiyuan> getyiyuan(){
 		jeguo.add(new yiyuan(String.valueOf(zhong.get(i)),String.valueOf(zhong.get(i+1))));
 	}
 	return jeguo;
-	
-	
-	
-}
-
-
-
-
-
-
+	}
 }

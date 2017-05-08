@@ -5,8 +5,10 @@ import java.util.List;
 
 
 
-public class Trees {
-	static class Tree {//树 类;
+
+
+public class Tree {
+//树 类;
 		private List<Node> list = new ArrayList<Node>();//node类型的数组 List
 
 		class Node {//节点类
@@ -59,18 +61,57 @@ public class Trees {
 		}
 
 		
-		public int lengths(Tree t,String id1,String id2){
+		public int lengths(String id1,String id2){
+			
+			Tree a = new Tree();
+			String ss;
+			ArrayList words;
+			ss = new Getfile().readTostring("D:/JAVA/ECLIPSE/demo/src/tree/WHOLE.txt", "utf-8");
+			ss=ss.replaceAll("\\s+", ",");
+			words =new Getfile().toarray(ss);//原始数组;
+			words.remove(0);
+			ArrayList Treelist =new ArrayList();
+			for(int i=0;i<words.size()/3;i++){
+				Treelist.add(String.valueOf(words.get(3*i+0)).trim());
+				Treelist.add(String.valueOf(words.get(3*i+2)).trim());
+			}
+			for(int i=0;i<Treelist.size()/2-1;i++){
+				if (Treelist.get(2*i+1).equals(Treelist.get(2*i)))
+						{
+					Treelist.set(2*i+1, "root");
+						}
+			}
+			ArrayList hashmap1=new ArrayList();//hash匹配用数组；
+			for(int i=0;i<words.size()/3;i++){
+				hashmap1.add(words.get(3*i+0));
+				hashmap1.add(words.get(3*i+1));
+			}
+			for(int i=0;i<Treelist.size()/2;i++){
+				a.add(String.valueOf(Treelist.get(2*i+1)).trim(),String.valueOf(Treelist.get(2*i+0)).trim());
+				//a.add("1", "0");
+				//a.add("2", "1");
+			}
+			HashMap<String,String>map=new HashMap<String,String>();
+			for(int i=0;i<hashmap1.size()/2;i++){
+				map.put(String.valueOf(hashmap1.get(2*i+1)),String.valueOf(hashmap1.get(2*i)));
+			}
+			HashMap<String,String>glos=new HashMap();
+			glos =new Getfile().getgloss_hash("1111");
+			
+			
+			id1=map.get(glos.get(id1));
+			id2=map.get(glos.get(id2));
 			ArrayList<String>id1s=new ArrayList();
 			ArrayList<String>id2s=new ArrayList();
 			HashMap<String,Integer>id1h=new HashMap();
 			HashMap<String,Integer>id2h=new HashMap();
-			while(!t.getParent(id1).equals("root")){
-				id1=t.getParent(id1);
+			while(!a.getParent(id1).equals("root")){
+				id1=a.getParent(id1);
 				id1s.add(id1);
 			}
 			id1s.add("root");
-			while(!t.getParent(id2).equals("root")){
-				id2=t.getParent(id2);
+			while(!a.getParent(id2).equals("root")){
+				id2=a.getParent(id2);
 				id2s.add(id2);
 			}
 			id2s.add("root");
@@ -90,7 +131,8 @@ public class Trees {
 			
 		}
 
-		}	
+
+		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Tree a = new Tree();
@@ -126,10 +168,6 @@ public class Trees {
 			map.put(String.valueOf(hashmap1.get(2*i+1)),String.valueOf(hashmap1.get(2*i)));
 		}
 		HashMap<String,String>glos=new HashMap();
-		glos =new Getfile().getgloss_hash("1111");
-		int first=a.lengths(a, map.get(glos.get("鼯鼠")),map.get(glos.get("阳")));
-		//int second=a.length(a, );
-		System.out.println(1.0/first);
-
+		
 }
 }
