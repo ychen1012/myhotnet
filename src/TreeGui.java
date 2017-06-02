@@ -3,15 +3,12 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -21,7 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
  
-public class TreeGui extends Application {
+public class TreeGui extends Application {//javafx的应用
  
   
  String yiyuan= new Getfile().readTostring("D:/JAVA/ECLIPSE/demo/src/tree/WHOLE.txt", "utf-8");
@@ -33,12 +30,12 @@ public class TreeGui extends Application {
  
     
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Tree View Sample");        
+        primaryStage.setTitle("（^-^）");    //脑残标题；    
  
         TreeItem<String> rootNode = new TreeItem<>("义原");
        
         rootNode.setExpanded(true);
-        for (yiyuan yiyuan : yiyuans) {
+        for (yiyuan yiyuan : yiyuans) {//foreach 循环，就和for inti=0；i<yiyuans.size;i++ 一样；
             TreeItem<String> empLeaf = new TreeItem<>(yiyuan.getChild());
             boolean found = false;
             for (TreeItem<String> depNode : rootNode.getChildren()) {
@@ -59,8 +56,8 @@ public class TreeGui extends Application {
 
 
                 
-TreeItem<String> rootItem = new TreeItem<> ("WHOLE");
-rootItem.setExpanded(true);
+TreeItem<String> rootItem = new TreeItem<> ("词表");
+rootItem.setExpanded(false);
 ArrayList glo =new ArrayList();
 String gloss=new String();
 gloss=new Getfile().readTostring("D:/JAVA/ECLIPSE/demo/src/tree/glossary.txt", "gbk");
@@ -85,32 +82,32 @@ TreeView<String> tree = new TreeView<> (rootItem);
         
  Text label1=new Text("词语一：");
  Text label2=new Text("词语二：");
- TextField text1=new TextField();
+ TextField text1=new TextField();//两个输入框
  TextField text2=new TextField();
- HBox hb=new HBox();
+ HBox hb=new HBox();//横
  HBox hb2=new HBox();
  HBox hb3=new HBox();
  
- VBox vb=new VBox();
+ VBox vb=new VBox();//竖
  Label length=new Label();
- Button len=new Button("计算");
- Button clean=new Button("清除");
-hb.getChildren().add(label1);
-hb.getChildren().add(text1);
-hb.setSpacing(10);
-hb2.getChildren().add(label2);
-hb2.getChildren().add(text2);
-hb2.setSpacing(10);
-hb3.getChildren().add(len);
-hb3.getChildren().add(clean);
-hb3.setSpacing(10);
-vb.getChildren().addAll(hb,hb2,length,hb3);
-vb.setSpacing(10);
-len.setOnAction((ActionEvent e)->{
-	length.setText(String.valueOf(1.0/(new Tree().lengths(text1.getText(), text2.getText()))));
+ Button len=new Button("计算");//计算按钮，
+ Button clean=new Button("清除");//清除按钮
+ hb.getChildren().add(label1);//横向的排版
+ hb.getChildren().add(text1);
+ hb.setSpacing(10);
+ hb2.getChildren().add(label2);
+ hb2.getChildren().add(text2);
+ hb2.setSpacing(10);
+ hb3.getChildren().add(len);
+ hb3.getChildren().add(clean);
+ hb3.setSpacing(10);
+ vb.getChildren().addAll(hb,hb2,length,hb3);
+ vb.setSpacing(10);
+	len.setOnAction((ActionEvent e)->{//动作事件，点击的时候，调用 Tree()中的lengths方法，    
+	length.setText(String.valueOf(1.0/(new Tree().lengths(text1.getText(), text2.getText()))));//getText 从输入框里读数据
 	
 });
-clean.setOnAction((ActionEvent e)->{
+	clean.setOnAction((ActionEvent e)->{//清除按钮；直接关；
 	text1.clear();
 	text2.clear();
 
@@ -120,9 +117,9 @@ clean.setOnAction((ActionEvent e)->{
  
         box.getChildren().add(treeView);
         GridPane g=new GridPane();
-        g.add(tree, 0, 0);
-        g.add(box, 1, 0);
-        g.add(vb, 2, 0);
+        g.add(tree, 1, 0);
+        g.add(box, 2, 0);
+        g.add(vb, 0, 0);
         primaryStage.setScene(new Scene(g, 800, 400));
         primaryStage.show();
     }
@@ -154,7 +151,7 @@ clean.setOnAction((ActionEvent e)->{
     }
 
 
-public ArrayList<yiyuan> getyiyuan(){
+public ArrayList<yiyuan> getyiyuan(){//读文件，得到义原；为了生成义原树
 	String ss;
 	ArrayList words;
 	ss = new Getfile().readTostring("D:/JAVA/ECLIPSE/demo/src/tree/WHOLE.txt", "utf-8");

@@ -2,11 +2,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-
-
-
-
 public class Tree {
 //树 类;
 		private List<Node> list = new ArrayList<Node>();//node类型的数组 List
@@ -32,7 +27,7 @@ public class Tree {
 		}
 		return null;
 		}
-		public List<String> getChild(String x) {
+		public List<String> getChild(String x) {//传入一个字符串，返回它的孩子节点；
 		List<String> newList = new ArrayList<String>();
 		for (int i = 0; i < list.size(); i++) {
 		if (list.get(i).parent.equals(x)) {
@@ -41,7 +36,7 @@ public class Tree {
 		}
 		return newList;
 		}
-		public int distance(Tree t,String x,String y) {
+		public int distance(Tree t,String x,String y) {//这方法不用看了，作废了
 		int distance=0;
 		for (int i = 0; i < t.getChild(x).size(); i++) {
 		if (t.getChild(x).toString().contains(y)) {
@@ -61,7 +56,7 @@ public class Tree {
 		}
 
 		
-		public int lengths(String id1,String id2){
+		public int lengths(String id1,String id2){//这才是算距离的方法嘛；
 			
 			Tree a = new Tree();
 			String ss;
@@ -78,7 +73,7 @@ public class Tree {
 			for(int i=0;i<Treelist.size()/2-1;i++){
 				if (Treelist.get(2*i+1).equals(Treelist.get(2*i)))
 						{
-					Treelist.set(2*i+1, "root");
+					Treelist.set(2*i+1, "root");//给所有的零散的树添加父亲节点 root
 						}
 			}
 			ArrayList hashmap1=new ArrayList();//hash匹配用数组；
@@ -96,7 +91,7 @@ public class Tree {
 				map.put(String.valueOf(hashmap1.get(2*i+1)),String.valueOf(hashmap1.get(2*i)));
 			}
 			HashMap<String,String>glos=new HashMap();
-			glos =new Getfile().getgloss_hash("1111");
+			glos =new Getfile().getgloss_hash("1111");//hashmap匹配，来得到单词和义原；
 			
 			
 			id1=map.get(glos.get(id1));
@@ -116,7 +111,7 @@ public class Tree {
 			}
 			id2s.add("root");
 			for(int i=0;i<id1s.size();i++){
-				id1h.put(String.valueOf(id1s.get(i)),i+1 );
+				id1h.put(String.valueOf(id1s.get(i)),i+1 );///hashmap 记录长度；i+1 就是长度
 			}
 			for(int i=0;i<id2s.size();i++){
 				id2h.put(String.valueOf(id2s.get(i)),i+1 );
@@ -127,13 +122,13 @@ public class Tree {
 			}
 			int number1 =i;
 			int number2 =id2h.get(id1s.get(i));
-			return number1+number2;
+			return number1+number2;//返回两个节点到共同的父亲节点的长度
 			
 		}
 
 
 		
-	public static void main(String[] args) {
+	public static void main(String[] args) {//这方法测试用了，实际没用到；
 		// TODO Auto-generated method stub
 		Tree a = new Tree();
 		String ss;
